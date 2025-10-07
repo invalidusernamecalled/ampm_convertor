@@ -16,6 +16,8 @@ for /f "tokens=1,2,3 delims=:" %%i in ("%time_str%") do set time_hour=%%i&set ti
 set time_hour=%time_hour:~-2%
 set time_min=%time_min:~0,2%
 if "%time_hour:~0,1%"=="0" set time_hour=%time_hour:~1,2%
+if %time_hour% GTR 23 call :exiterror&goto :eof
+if %time_min% GTR 59 call :exiterror&goto :eof
 if %time_hour% LEQ 11 set x=AM&goto print_time
 set x=PM
 if %time_hour% GTR 12 set /a time_hour=time_hour-12
@@ -27,6 +29,11 @@ for /f "tokens=1,2,3 delims=: " %%i in ("%time_str%") do set time_hour=%%i&set t
 set time_hour=%time_hour:~-2%
 set time_min=%time_min:~0,2%
 if "%time_hour:~0,1%"=="0" set time_hour=%time_hour:~1,2%
+if %time_hour% GTR 23 call :exiterror&goto :eof
+if %time_min% GTR 59 call :exiterror&goto :eof
 if /i "%ampm%"=="Pm" set /a time_hour=time_hour+12
 echo %time_hour%:%time_min%
 goto :eof
+:exiterror
+echo:invalid time
+exit /b 1
