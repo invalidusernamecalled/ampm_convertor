@@ -1,4 +1,4 @@
-@echo off
+@echo on
 
 REM AM/PM CONVERTOR
 
@@ -31,6 +31,7 @@ set time_min=%time_min:~0,2%
 if "%time_hour:~0,1%"=="0" set time_hour=%time_hour:~1,2%
 if %time_hour% GTR 23 call :exiterror&goto :eof
 if %time_min% GTR 59 call :exiterror&goto :eof
+set ampm=%ampm:"=%
 if /i "%ampm%"=="Pm" set /a time_hour=time_hour+12
 echo %time_hour%:%time_min%
 goto :eof
