@@ -1,11 +1,12 @@
 @echo off
 
-REM AM/PM CONVERTOR
-
+REM AM/PM CONVERTOR"
+call :seterror
 set "time_str=%*"
 (for /f "delims=" %%i in ('if %time_str% NEQ "" echo HELL') do if "%%i"=="HELL" goto continue) 2>NUL
 (for /f "delims=" %%i in ('if "%time_str%" NEQ "" echo HELL') do if "%%i"=="HELL" goto continue) 2>NUL
 echo:Encountered format error
+REM
 goto :eof
 :continue
 for /f "delims=" %%i in ("%time_str%") do echo %%~i|findstr /rc:"^[0-9][0-9]*[:][0-9][0-9]* [AaPp][Mm]$" >NUL&&goto process_am
@@ -37,5 +38,6 @@ echo %time_hour%:%time_min%
 goto :eof
 :exiterror
 echo:invalid time
-
+exit /b 1
+:seterror
 exit /b 1
