@@ -1,4 +1,4 @@
-@echo on
+@echo off
 
 REM AM/PM CONVERTOR
 
@@ -37,4 +37,5 @@ echo %time_hour%:%time_min%
 goto :eof
 :exiterror
 echo:invalid time
+
 exit /b 1
