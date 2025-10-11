@@ -6,13 +6,17 @@ set "time_str=%*"
 (for /f "delims=" %%i in ('if %time_str% NEQ "" echo HELL') do if "%%i"=="HELL" goto continue) 2>NUL
 (for /f "delims=" %%i in ('if "%time_str%" NEQ "" echo HELL') do if "%%i"=="HELL" goto continue) 2>NUL
 echo:Encountered format error
+call :seterror
 REM
 goto :eof
 :continue
 for /f "delims=" %%i in ("%time_str%") do echo %%~i|findstr /rc:"^[0-9][0-9]*[:][0-9][0-9]* [AaPp][Mm]$" >NUL&&goto process_am
 for /f "delims=" %%i in ("%time_str%") do echo %%~i|findstr /rc:"^[0-9][0-9]*[:][0-9][0-9]*$" >NUL&&goto process_num
+call :seterror
+echo:Invalid format error
+goto :eof
 :process_num
-REM echO HEE HEE
+echO HEE HEE
 for /f "tokens=1,2,3 delims=:" %%i in ("%time_str%") do set time_hour=%%i&set time_min=%%j
 set time_hour=%time_hour:~-2%
 set time_min=%time_min:~0,2%
