@@ -33,7 +33,8 @@ if "%time_hour:~0,1%"=="0" set time_hour=%time_hour:~1,2%
 if %time_hour% GTR 23 call :exiterror&goto :eof
 if %time_min% GTR 59 call :exiterror&goto :eof
 set ampm=%ampm:"=%
-if /i "%ampm%"=="Pm" set /a time_hour=time_hour+12
+if /i "%ampm%"=="Am" (if %time_hour% GTR 12 CALL "%~nx0" %time_hour%:%time_min%&goto :eof)
+if /i "%ampm%"=="Pm" (if %time_hour% GTR 12 CALL "%~nx0" %time_hour%:%time_min%&goto :eof)&set /a time_hour=time_hour+12
 echo %time_hour%:%time_min%
 goto :eof
 :exiterror
