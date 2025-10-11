@@ -16,7 +16,7 @@ call :seterror
 echo:Invalid format error
 goto :eof
 :process_num
-echO HEE HEE
+::::::::::echO HEE HEE
 for /f "tokens=1,2,3 delims=:" %%i in ("%time_str%") do set time_hour=%%i&set time_min=%%j
 set time_hour=%time_hour:~-2%
 set time_min=%time_min:~0,2%
